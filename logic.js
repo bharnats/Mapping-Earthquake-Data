@@ -3,11 +3,22 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 
 // Define a markerSize function that will give each city a different radius based on its population
 function markerSize(magnitude) {
-  return magnitude*5 ;
+  return magnitude*8 ;
 }
 
 // Define arrays to hold created city and state markers
 var circleMarkers = [];
+function getColor(d) {
+
+  return d > 7 ? '#800026' :
+           d > 6  ? '#BD0026' :
+           d > 5  ? '#E31A1C' :
+           d > 4  ? '#FC4E2A' :
+           d > 3   ? '#FD8D3C' :
+           d > 2   ? '#FEB24C' :
+           d > 1   ? '#FED976' :
+                      '#FFEDA0';
+}
 
 
 // Perform a GET request to the query URL
@@ -23,9 +34,9 @@ function createFeatures(earthquakeData) {
   // Give each feature a popup describing the place and time of the earthquake
   function markers(feature,latlng){
         return new L.CircleMarker(latlng, {
-        fillOpacity: 0.75,
+        fillOpacity: 0.9,
         color: "white",
-        fillColor: "red",
+        fillColor: getColor(feature.properties.mag),
         // Setting our circle's radius equal to the output of our markerSize function
         // This will make our marker's size proportionate to its population
         radius: markerSize(feature.properties.mag)
@@ -70,7 +81,7 @@ function createMap(earthquakes) {
 
   // Create overlay object to hold our overlay layer 
   var overlayMaps = {
-    Earthquakes: earthquakes,
+    Earthquakes: earthquakes
     
   };
 
@@ -83,13 +94,39 @@ function createMap(earthquakes) {
     layers: [streetmap, earthquakes]
   });
 
+
+
+
 // Create a layer control
   // Pass in our baseMaps and overlayMaps
   // Add the layer control to the map
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+
+
+
 }
+  var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (myMap) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0,1,2,3,4,5,6,7];
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
 
 
 
