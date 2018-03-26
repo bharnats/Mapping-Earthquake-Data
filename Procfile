@@ -1,1 +1,1 @@
-web: gunicorn gettingstarted.wsgi
+web: gunicorn Visualize-Eartquake_Data.wsgi --log-file -
