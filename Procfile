@@ -1,1 +1,1 @@
-web: gunicorn Visualize-Earthquake_Data.wsgi --log-file -
+web: gunicorn index.html
