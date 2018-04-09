@@ -66,7 +66,7 @@ Many people don't know how much seismic activity is happening around them all th
 
 Two ideas of ways to go above and beyond:
 
-* Find another set of geospatial data that you can be used to show a new correlation or insight about our existing earthquake data.
+* Find another set of geospatial data that can be used to show a new correlation or insight about our existing earthquake data.
 
 * Use additional plug-ins from the [Leaflet Documentation](http://leafletjs.com/plugins.html) to further visualize our data in a unique way.
 
