@@ -15,7 +15,7 @@ The USGS is interested in building a new set of tools that will allow them visua
 
 The first task is to visualize an earthquake data set.
 
-1. **Get your data set**
+1. **Get the data set**
 
    ![3-Data](images/3-Data.png)
 
